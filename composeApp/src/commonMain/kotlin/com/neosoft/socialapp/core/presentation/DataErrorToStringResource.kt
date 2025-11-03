@@ -1,12 +1,13 @@
 package com.neosoft.socialapp.core.presentation
-import cmp_bookpedia.composeapp.generated.resources.Res
-import cmp_bookpedia.composeapp.generated.resources.error_disk_full
-import cmp_bookpedia.composeapp.generated.resources.error_no_internet
-import cmp_bookpedia.composeapp.generated.resources.error_request_timeout
-import cmp_bookpedia.composeapp.generated.resources.error_serialization
-import cmp_bookpedia.composeapp.generated.resources.error_too_many_requests
-import cmp_bookpedia.composeapp.generated.resources.error_unknown
-import com.plcoding.bookpedia.core.domain.DataError
+import com.neosoft.socialapp.core.domain.DataError
+import socialapp.composeapp.generated.resources.Res
+import socialapp.composeapp.generated.resources.error_disk_full
+import socialapp.composeapp.generated.resources.error_no_internet
+import socialapp.composeapp.generated.resources.error_request_timeout
+import socialapp.composeapp.generated.resources.error_serialization
+import socialapp.composeapp.generated.resources.error_too_many_requests
+import socialapp.composeapp.generated.resources.error_unknown
+
 
 fun DataError.toUiText(): UiText {
     val stringRes = when(this) {
