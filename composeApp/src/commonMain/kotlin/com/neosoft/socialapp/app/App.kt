@@ -1,19 +1,16 @@
 package com.neosoft.socialapp.app
 import SplashScreen
-import SplashViewModel
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
+import SplashScreenRoot
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.neosoft.socialapp.splash.presentation.SplashViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -30,7 +27,9 @@ fun App() {
         ) {
             composable(Route.Splash.route) {
                 val viewModel = koinViewModel<SplashViewModel>()
-                SplashScreen(viewModel)
+                SplashScreenRoot(viewModel, {
+
+                })
             }
         }
 

@@ -1,6 +1,7 @@
 package com.neosoft.socialapp.di
-import SplashViewModel
+
 import com.neosoft.socialapp.core.data.HttpClientFactory
+import com.neosoft.socialapp.splash.presentation.SplashViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
