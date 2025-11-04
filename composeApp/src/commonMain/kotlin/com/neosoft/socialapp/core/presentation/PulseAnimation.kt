@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.neosoft.socialapp.core.presentation.SandYellow
+import com.neosoft.socialapp.core.presentation.primary
 
 @Composable
 fun PulseAnimation(modifier: Modifier = Modifier) {
@@ -36,7 +36,7 @@ fun PulseAnimation(modifier: Modifier = Modifier) {
             }
             .border(
                 width = 5.dp,
-                color = SandYellow,
+                color = primary,
                 shape = CircleShape
             )
     )
