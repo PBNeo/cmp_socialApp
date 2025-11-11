@@ -28,6 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.neosoft.designsystem.components.AppPrimaryButton
+import com.neosoft.designsystem.components.AppSecondaryButton
+import com.neosoft.designsystem.utils.AppColors
 import com.neosoft.socialapp.core.presentation.primary
 import com.neosoft.socialapp.splash.presentation.SplashScreenAction
 import com.neosoft.socialapp.splash.presentation.SplashState
@@ -120,49 +123,30 @@ fun SplashScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             if (pagerState.currentPage == 2) {
-
-                // Secondary button (Continue)
-                Button(
-                    onClick = { onAction(SplashScreenAction.OnContinueClicked) },
-                    modifier = Modifier.fillMaxWidth().height(50.dp)  ,
-                    shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = primary, // your custom primary color
-                        contentColor = Color.White // text color
-                    )// full width
-                ) {
-                    Text("Continue")
-                }
-            } else {
-                Button(onClick = {
-                    val next = pagerState.currentPage + 1
-                    coroutineScope.launch {
-                        pagerState.animateScrollToPage(next)
-                        onAction(SplashScreenAction.OnPageSwiped(next))
+                AppPrimaryButton(text ="Continue",
+                    onClick = {
+                        val next = pagerState.currentPage + 1
+                        coroutineScope.launch {
+                            pagerState.animateScrollToPage(next)
+                            onAction(SplashScreenAction.OnPageSwiped(next))
+                        }
                     }
-                },
-                        modifier = Modifier.fillMaxWidth().height(50.dp) ,
-                    shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = primary, // your custom primary color
-                        contentColor = Color.White // text color
+                )
+            } else {
+                AppPrimaryButton(text ="Next",
+                    onClick = {
+                        val next = pagerState.currentPage + 1
+                        coroutineScope.launch {
+                            pagerState.animateScrollToPage(next)
+                            onAction(SplashScreenAction.OnPageSwiped(next))
+                        }
+                    }
                     )
-                ) {
-                    Text("Next")
-                }
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedButton(
+                AppSecondaryButton(
+                    text = "Skip",
                     onClick = { onAction(SplashScreenAction.OnContinueClicked) },
-                    modifier = Modifier.fillMaxWidth().height(50.dp) ,
-                    shape = RoundedCornerShape(10.dp),
-                    border = BorderStroke(1.dp, primary), // sets border color
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = primary,          // text color
-                        containerColor = Color.White,             // optional background color
-                    )
-                ) {
-                    Text("Skip")
-                }
+                )
             }
 
             Spacer(modifier = Modifier.height(32.dp))
