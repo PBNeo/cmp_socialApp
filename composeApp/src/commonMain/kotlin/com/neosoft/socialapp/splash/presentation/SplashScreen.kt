@@ -72,7 +72,7 @@ fun SplashScreen(
     val pagerState = rememberPagerState(
         initialPage = state.selectedStep,
         initialPageOffsetFraction =0F,
-        pageCount = { 2 }
+        pageCount = { 3 }
     )
     val coroutineScope = rememberCoroutineScope()
 
@@ -125,11 +125,7 @@ fun SplashScreen(
             if (pagerState.currentPage == 2) {
                 AppPrimaryButton(text ="Continue",
                     onClick = {
-                        val next = pagerState.currentPage + 1
-                        coroutineScope.launch {
-                            pagerState.animateScrollToPage(next)
-                            onAction(SplashScreenAction.OnPageSwiped(next))
-                        }
+                        onAction(SplashScreenAction.OnContinueClicked)
                     }
                 )
             } else {

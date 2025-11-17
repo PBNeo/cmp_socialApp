@@ -14,4 +14,14 @@ sealed interface Route {
     data object Home : Route {
         const val route: String = "home"
     }
+
+    @Serializable
+    data object Login : Route {
+        const val route: String = "auth/login"
+    }
+
+    @Serializable
+    data object VerifyOtp : Route {
+        const val route: String = "auth/verifyOtp"
+    }
 }

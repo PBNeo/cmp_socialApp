@@ -1,6 +1,7 @@
 package com.neosoft.socialapp.app
-import SplashScreen
 import SplashScreenRoot
+import VerifyOTPViewModel
+import VerifyOtpScreenRoot
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -10,6 +11,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.neosoft.auth.presentation.register.LoginScreenRoot
+import com.neosoft.auth.presentation.register.RegisterViewModel
 import com.neosoft.socialapp.splash.presentation.SplashViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -28,6 +31,24 @@ fun App() {
             composable(Route.Splash.route) {
                 val viewModel = koinViewModel<SplashViewModel>()
                 SplashScreenRoot(viewModel, {
+                    navController.navigate(
+                        Route.Login.route
+                    )
+
+                })
+            }
+            composable(Route.Login.route) {
+                val viewModel = koinViewModel<RegisterViewModel>()
+                LoginScreenRoot (viewModel, {
+                    navController.navigate(
+                        Route.VerifyOtp.route
+                    )
+                })
+            }
+
+            composable(Route.VerifyOtp.route) {
+                val viewModel = koinViewModel<VerifyOTPViewModel>()
+                VerifyOtpScreenRoot (viewModel, {
 
                 })
             }

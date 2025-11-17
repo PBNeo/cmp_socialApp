@@ -35,3 +35,4 @@ plugins {
 include(":composeApp")
 include(":data")
 include(":designsystem")
+include(":auth")

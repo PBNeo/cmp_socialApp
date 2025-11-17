@@ -1,5 +1,7 @@
 package com.neosoft.socialapp.di
 
+import VerifyOTPViewModel
+import com.neosoft.auth.presentation.register.RegisterViewModel
 import com.neosoft.socialapp.core.data.HttpClientFactory
 import com.neosoft.socialapp.splash.presentation.SplashViewModel
 import org.koin.core.module.Module
@@ -12,4 +14,6 @@ val sharedModule = module {
     single { HttpClientFactory.create(get()) }
 
     viewModelOf(::SplashViewModel)
+    viewModelOf(::RegisterViewModel)
+    viewModelOf(::VerifyOTPViewModel)
 }
