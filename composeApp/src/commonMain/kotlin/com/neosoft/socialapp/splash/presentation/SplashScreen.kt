@@ -30,8 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.AppSecondaryButton
-import com.neosoft.designsystem.utils.AppColors
-import com.neosoft.socialapp.core.presentation.primary
 import com.neosoft.socialapp.splash.presentation.SplashScreenAction
 import com.neosoft.socialapp.splash.presentation.SplashState
 import com.neosoft.socialapp.splash.presentation.SplashViewModel

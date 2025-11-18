@@ -57,6 +57,7 @@ kotlin {
             api(libs.koin.core)
             implementation(project(":designsystem"))
             implementation(project(":auth"))
+            implementation(project(":coreModules"))
             implementation(libs.coil.compose)
 
         }
@@ -103,6 +104,7 @@ android {
 dependencies {
     implementation(project(":designsystem"))
     implementation(project(":auth"))
+    implementation(project(":coreModules"))
     debugImplementation(compose.uiTooling)
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)

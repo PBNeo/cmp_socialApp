@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.neosoft.coremodules.navigation.LocalRouter
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.OtpTextField
 import org.koin.compose.viewmodel.koinViewModel
@@ -33,14 +34,17 @@ fun VerifyOtpScreenRoot (
 ){
     val state by viewModel.state.collectAsStateWithLifecycle()
     val timeLeft by viewModel.timeLeft.collectAsStateWithLifecycle()
+    val router = LocalRouter.current
     VerifyOtpScreen(
         state = state,
         timeLeft =timeLeft,
         onAction = { action ->
             when(action) {
                 is VerifyOTPAction.onNextClicked -> OnContinueClicked()
+                is VerifyOTPAction.onBackPressed -> router.pop();
                 else -> Unit
             }
+
             viewModel.onAction(action)
         })
 
