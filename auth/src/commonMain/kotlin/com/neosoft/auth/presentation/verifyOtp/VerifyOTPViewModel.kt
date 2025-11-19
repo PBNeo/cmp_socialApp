@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 
-class  VerifyOTPViewModel() : ViewModel(){
+class  VerifyOTPViewModel(
+    mobileNo: String
+) : ViewModel(){
 
     private val _timeLeft = MutableStateFlow(60)
     private val _state = MutableStateFlow(VerifyOTPScreenState())
@@ -16,6 +18,7 @@ class  VerifyOTPViewModel() : ViewModel(){
 
 
     init {
+        _state.value = _state.value.copy(mobileNo = mobileNo)
         startTimer()
     }
 

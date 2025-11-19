@@ -8,11 +8,4 @@ class  RegisterViewModel () : ViewModel(){
     val state = _state
 
 
-    fun onAction(action: RegisterScreenAction) {
-        when (action) {
-            is RegisterScreenAction.OnNext-> {
-
-            }
-        }
-    }
 }

@@ -25,13 +25,14 @@ import com.neosoft.coremodules.navigation.LocalRouter
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.OtpTextField
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 
 @Composable
 fun VerifyOtpScreenRoot (
-    viewModel: VerifyOTPViewModel = koinViewModel(),
-    OnContinueClicked: () -> Unit,
+    mobile:String?
 ){
+    val viewModel: VerifyOTPViewModel = koinViewModel(parameters = { parametersOf(mobile) })
     val state by viewModel.state.collectAsStateWithLifecycle()
     val timeLeft by viewModel.timeLeft.collectAsStateWithLifecycle()
     val router = LocalRouter.current
@@ -40,7 +41,6 @@ fun VerifyOtpScreenRoot (
         timeLeft =timeLeft,
         onAction = { action ->
             when(action) {
-                is VerifyOTPAction.onNextClicked -> OnContinueClicked()
                 is VerifyOTPAction.onBackPressed -> router.pop();
                 else -> Unit
             }

@@ -27,24 +27,30 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.neosoft.coremodules.navigation.LocalRouter
+import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.CountrySelector.CountryWheelPicker
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun LoginScreenRoot (
+fun RegisterScreenRoot (
     viewModel: RegisterViewModel = koinViewModel(),
     OnContinueClicked: () -> Unit,
 ){
+    val router = LocalRouter.current
     val state by viewModel.state.collectAsStateWithLifecycle()
-    LoginScreen(
+    RegisterScreen(
         state = state,
         onAction = { action ->
             when(action) {
-                is RegisterScreenAction.OnNext -> OnContinueClicked()
+                is RegisterScreenAction.OnNext -> {
+                    val mobile = viewModel.state.value.mobileNo
+                    router.go(Route.VerifyOtp(mobile)) // pass mobile
+                }
                 else -> Unit
             }
-            viewModel.onAction(action)
+
         })
 
 
@@ -52,7 +58,7 @@ fun LoginScreenRoot (
 
 
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     state: RegisterScreenState,
     onAction: (RegisterScreenAction) -> Unit
 )   {
