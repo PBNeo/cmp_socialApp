@@ -48,6 +48,11 @@ fun RegisterScreenRoot (
                     val mobile = viewModel.state.value.mobileNo
                     router.go(Route.VerifyOtp(mobile)) // pass mobile
                 }
+                is RegisterScreenAction.OnSignIn -> {
+                    router.go(Route.Login)
+                }
+
+
                 else -> Unit
             }
 

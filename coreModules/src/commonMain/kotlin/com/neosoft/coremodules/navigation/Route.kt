@@ -20,6 +20,33 @@ sealed interface Route {
     }
 
     @Serializable
+    data object Register : Route {
+        override val path: String = "auth/register"
+    }
+
+    @Serializable
+    data object ForgotPassword : Route {
+        override val path: String = "auth/forgotPassword"
+    }
+
+
+    @Serializable
+    data object  ChangePassword : Route {
+        override val path: String = "auth/changePassword"
+    }
+
+    @Serializable
+    data object  WelcomeScreen : Route {
+        override val path: String = "auth/welcomeScreen"
+    }
+
+    @Serializable
+    data object  AccountSetup : Route {
+        override val path: String = "auth/accountSetup"
+    }
+
+
+    @Serializable
     data class VerifyOtp(val mobile: String) : Route {
         override val path: String = "auth/verifyOtp/${mobile}"
 
@@ -27,6 +54,12 @@ sealed interface Route {
             override val routeName: String = "auth/verifyOtp"
             override val serializer: KSerializer<String> = String.serializer()
         }
+    }
+
+    @Serializable
+    data object ProfileSetup : Route {
+        override val path: String = "auth/profileSetup/"
+
     }
     interface WithArgs<T> : Route {
         val routeName: String

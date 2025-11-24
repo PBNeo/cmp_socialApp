@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.neosoft.coremodules.navigation.LocalRouter
+import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.OtpTextField
 import org.koin.compose.viewmodel.koinViewModel
@@ -42,6 +43,9 @@ fun VerifyOtpScreenRoot (
         onAction = { action ->
             when(action) {
                 is VerifyOTPAction.onBackPressed -> router.pop();
+                is VerifyOTPAction.onNextClicked -> {
+                router.go(Route.ProfileSetup) // pass mobile
+            }
                 else -> Unit
             }
 
