@@ -21,10 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.neosoft.auth.presentation.register.RegisterScreenAction
 import com.neosoft.coremodules.navigation.LocalRouter
 import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.AppPrimaryButton
+import com.neosoft.designsystem.components.BaseScreen
 import com.neosoft.designsystem.components.OtpTextField
+import com.neosoft.designsystem.utils.AppColors.primary
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -62,105 +65,98 @@ fun VerifyOtpScreen(
     timeLeft: Int,
     onAction: (VerifyOTPAction) -> Unit
 )   {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+
+    BaseScreen(
+        showBackButton = true,
+        onBackPressed = { onAction(VerifyOTPAction.onBackPressed) }
     ) {
-
-        // --- Top Bar ---
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
-            IconButton(onClick = { onAction(VerifyOTPAction.onBackPressed) }) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back"
-                )
+
+
+            // --- Title ---
+            Text(
+                text = "OTP sent",
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(Modifier.height(4.dp))
+
+            // --- Subtitle ---
+            Text(
+                text = "Enter the OTP sent to you",
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Gray
+            )
+            Spacer(Modifier.height(16.dp))
+
+            OtpTextField(
+                otpText = state.otpText,
+                onOtpTextChange = { s, length ->
+                    onAction(VerifyOTPAction.onOTPAutoSubmitted)
+                }
+            )
+            Spacer(Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text("Didn’t receive any code? ")
+
+                if (timeLeft > 0) {
+                    // NOT CLICKABLE while timer is running
+                    Text(
+                        text = "Resend in $timeLeft",
+                        color = Color.Red,
+                        fontWeight = FontWeight.Bold
+                    )
+                } else {
+                    // CLICKABLE WHEN TIMER ENDS
+                    Text(
+                        text = "Resend OTP",
+                        color = MaterialTheme.colorScheme.error,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.clickable {
+                            onAction(VerifyOTPAction.onResendOtpClicked)
+                        }
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
-        }
 
-        Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(32.dp))
 
-        // --- Title ---
-        Text(
-            text = "OTP sent",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold
-        )
 
-        Spacer(Modifier.height(4.dp))
+            // --- Next Button ---
+            AppPrimaryButton(
+                text = "Next",
+                onClick = { onAction(VerifyOTPAction.onNextClicked) }
+            )
 
-        // --- Subtitle ---
-        Text(
-            text = "Enter the OTP sent to you",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.Gray
-        )
-        OtpTextField(
-            otpText = state.otpText,
-            onOtpTextChange = {
-                s,length->onAction(VerifyOTPAction.onOTPAutoSubmitted)
-            }
-        )
-        // --- Rich Text: Already have an account? Sign in ---
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text("Didn’t receive any code? ")
+            Spacer(Modifier.height(24.dp))
 
-            if (timeLeft > 0) {
-                // NOT CLICKABLE while timer is running
+
+            // --- Rich Text: Already have an account? Sign in ---
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text("Already have an account? ")
+
                 Text(
-                    text = "Resend in $timeLeft",
-                    color = Color.Red,
-                    fontWeight = FontWeight.Bold
-                )
-            } else {
-                // CLICKABLE WHEN TIMER ENDS
-                Text(
-                    text = "Resend OTP",
-                    color = MaterialTheme.colorScheme.error,
+                    text = "Sign in",
+                    color = primary,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable {
-                        onAction(VerifyOTPAction.onResendOtpClicked)
+                        onAction(VerifyOTPAction.onSignedUpClicked)
                     }
                 )
             }
-        }
-
-
-        Spacer(Modifier.height(32.dp))
-
-
-        // --- Next Button ---
-        AppPrimaryButton(
-            text = "Next",
-            onClick = { onAction(VerifyOTPAction.onNextClicked) }
-        )
-
-        Spacer(Modifier.height(24.dp))
-
-
-        // --- Rich Text: Already have an account? Sign in ---
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text("Already have an account? ")
-
-            Text(
-                text = "Sign in",
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.clickable {
-                    onAction(VerifyOTPAction.onSignedUpClicked)
-                }
-            )
         }
     }
 }

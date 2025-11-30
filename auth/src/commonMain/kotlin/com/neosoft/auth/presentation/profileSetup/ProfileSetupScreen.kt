@@ -24,8 +24,11 @@ import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.AppDropdown
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.AppTextField
+import com.neosoft.designsystem.components.BaseScreen
 import com.neosoft.designsystem.components.DropDownItem
 import com.neosoft.designsystem.components.GenderDropdown
+import com.neosoft.designsystem.utils.AppColors.primary
+import neosoft.login.LoginScreenAction
 import neosoft.profileSetup.ProfileSetupScreenAction
 import neosoft.profileSetup.ProfileSetupScreenState
 import neosoft.profileSetup.ProfileSetupViewModel
@@ -64,89 +67,93 @@ fun ProfileSetupScreen(state: ProfileSetupScreenState, onAction: (ProfileSetupSc
         DropDownItem("Female", "female"),
         DropDownItem("Other", "other")
     )
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
-            .verticalScroll(rememberScrollState())
+    BaseScreen(
+        showBackButton = true,
+        onBackPressed = { onAction(ProfileSetupScreenAction.OnBackPressed) }
     ) {
-
-        Text(
-            "Personal Information",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(Modifier.height(4.dp))
-
-        Text(
-            "Please fill the following",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
-        Spacer(Modifier.height(24.dp))
-
-        AppTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = "Full name"
-        )
-
-        Spacer(Modifier.height(18.dp))
-
-        AppTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = "Email Address"
-        )
-
-        Spacer(Modifier.height(18.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            AppTextField(
-                value = dob,
-                onValueChange = { dob = it },
-                label = "Date of birth",
-                modifier = Modifier.weight(1f)
-            )
 
-            AppDropdown(
-                label = "Gender",
-                value = selectedGender,
-                items = genders,
-                onSelect = { selectedGender = it },
-                modifier = Modifier.weight(1f)   // ← FIXED
-            )
-        }
-
-
-        Spacer(Modifier.height(18.dp))
-
-        AppTextField(
-            value = about,
-            onValueChange = { about = it },
-            label = "About",
-            singleLine = false,
-            modifier = Modifier.height(120.dp)
-        )
-
-        Spacer(Modifier.height(24.dp))
-        AppPrimaryButton(
-            text = "Next",
-            onClick = { onAction(ProfileSetupScreenAction.OnNext) }
-        )
-        Spacer(Modifier.height(18.dp))
-
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text("Already have an account? ")
             Text(
-                "Sign In",
-                color = Color(0xFF0077B6),
+                "Personal Information",
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
+            Spacer(Modifier.height(4.dp))
+
+            Text(
+                "Please fill the following",
+                fontSize = 16.sp,
+                color = Color.Gray
+            )
+            Spacer(Modifier.height(24.dp))
+
+            AppTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = "Full name"
+            )
+
+            Spacer(Modifier.height(18.dp))
+
+            AppTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = "Email Address"
+            )
+
+            Spacer(Modifier.height(18.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                AppTextField(
+                    value = dob,
+                    onValueChange = { dob = it },
+                    label = "Date of birth",
+                    modifier = Modifier.weight(1f)
+                )
+
+                AppDropdown(
+                    label = "Gender",
+                    value = selectedGender,
+                    items = genders,
+                    onSelect = { selectedGender = it },
+                    modifier = Modifier.weight(1f)   // ← FIXED
+                )
+            }
+
+
+            Spacer(Modifier.height(18.dp))
+
+            AppTextField(
+                value = about,
+                onValueChange = { about = it },
+                label = "About",
+                singleLine = false,
+                modifier = Modifier.height(120.dp)
+            )
+
+            Spacer(Modifier.height(24.dp))
+            AppPrimaryButton(
+                text = "Next",
+                onClick = { onAction(ProfileSetupScreenAction.OnNext) }
+            )
+            Spacer(Modifier.height(18.dp))
+
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                Text("Already have an account? ")
+                Text(
+                    "Sign In",
+                    color = primary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }

@@ -18,10 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.neosoft.auth.presentation.accountUsersetup.AccountUserSetupScreenAction
 import com.neosoft.coremodules.navigation.LocalRouter
 import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.AppTextField
+import com.neosoft.designsystem.components.BaseScreen
+import com.neosoft.designsystem.utils.AppColors.primary
 import neosoft.forgotPassword.ForgotPasswordScreenAction
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -49,54 +52,59 @@ fun ChangePasswordScreenRoot(
 fun ChangePasswordScreen(state: ChangePasswordScreenState, onAction: (ChangePasswordScreenAction) -> Unit) {
     var newPass by remember { mutableStateOf("") }
     var conFirmNewPass by remember { mutableStateOf("") }
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
-            .verticalScroll(rememberScrollState())
+    BaseScreen(
+        showBackButton = true,
+        onBackPressed = { onAction(ChangePasswordScreenAction.OnBackPressed) }
     ) {
-        Text(
-            "Pick a new Password",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(Modifier.height(4.dp))
-
-        Text(
-            "Help you secure your account",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
-        Spacer(Modifier.height(24.dp))
-
-        AppTextField(
-            value = newPass,
-            onValueChange = { newPass = it },
-            label = "New Password"
-        )
-        Spacer(Modifier.height(24.dp))
-
-        AppTextField(
-            value = conFirmNewPass,
-            onValueChange = { conFirmNewPass = it },
-            label = "Confirm new Password"
-        )
-
-        Spacer(Modifier.height(24.dp))
-
-        AppPrimaryButton(
-            text = "Done",
-            onClick = { onAction(ChangePasswordScreenAction.OnNext) }
-        )
-        Spacer(Modifier.height(24.dp))
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text("Already have an account? ")
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             Text(
-                "Sign In",
-                color = Color(0xFF0077B6),
+                "Pick a new Password",
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
-        }
+            Spacer(Modifier.height(4.dp))
 
+            Text(
+                "Help you secure your account",
+                fontSize = 16.sp,
+                color = Color.Gray
+            )
+            Spacer(Modifier.height(24.dp))
+
+            AppTextField(
+                value = newPass,
+                onValueChange = { newPass = it },
+                label = "New Password"
+            )
+            Spacer(Modifier.height(24.dp))
+
+            AppTextField(
+                value = conFirmNewPass,
+                onValueChange = { conFirmNewPass = it },
+                label = "Confirm new Password"
+            )
+
+            Spacer(Modifier.height(24.dp))
+
+            AppPrimaryButton(
+                text = "Done",
+                onClick = { onAction(ChangePasswordScreenAction.OnNext) }
+            )
+            Spacer(Modifier.height(24.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                Text("Already have an account? ")
+                Text(
+                    "Sign In",
+                    color = primary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+        }
     }
     }

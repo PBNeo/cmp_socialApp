@@ -21,6 +21,8 @@ import com.neosoft.coremodules.navigation.LocalRouter
 import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.AppTextField
+import com.neosoft.designsystem.components.BaseScreen
+import com.neosoft.designsystem.utils.AppColors.primary
 import neosoft.forgotPassword.ForgotPasswordScreenAction
 import neosoft.forgotPassword.ForgotPasswordScreenState
 import neosoft.forgotPassword.ForgotPasswordViewModel
@@ -39,6 +41,9 @@ fun ForgotPasswordScreenRoot(
         state = state,
         onAction = { action ->
             when(action) {
+                is ForgotPasswordScreenAction.OnBackPressed ->{
+                    router.pop()
+                }
                 is ForgotPasswordScreenAction.OnNext -> {
                          router.go(Route.ChangePassword)
                 }
@@ -53,12 +58,17 @@ fun ForgotPasswordScreen(state: ForgotPasswordScreenState, onAction: (ForgotPass
     var userName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
+
+    BaseScreen(
+        showBackButton = true,
+        onBackPressed = { onAction(ForgotPasswordScreenAction.OnBackPressed) }
+    ) {
     Column (
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp)
             .verticalScroll(rememberScrollState())
-    ){
+    ) {
         Text(
             "Forgot Password",
             fontSize = 24.sp,
@@ -105,11 +115,12 @@ fun ForgotPasswordScreen(state: ForgotPasswordScreenState, onAction: (ForgotPass
             Text("Already have an account? ")
             Text(
                 "Sign In",
-                color = Color(0xFF0077B6),
+                color = primary,
                 fontWeight = FontWeight.Bold
             )
         }
 
 
+    }
     }
 }

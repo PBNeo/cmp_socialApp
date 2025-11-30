@@ -27,13 +27,16 @@ import neosoft.changePassword.ChangePasswordViewModel
 import neosoft.forgotPassword.ForgotPasswordViewModel
 import neosoft.login.LoginViewModel
 import neosoft.profileSetup.ProfileSetupViewModel
+import org.koin.compose.getKoin
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.Koin
 
 
 @Composable
 fun App() {
     val navController = rememberNavController()
     val router = remember { AppRouter(navController) }
+    val koin = getKoin()
 
     CompositionLocalProvider(LocalRouter provides router) {
 
@@ -49,7 +52,7 @@ fun App() {
             }
 
             composable(Route.Register.path) {
-                val viewModel = koinViewModel<RegisterViewModel>()
+                val viewModel = koin.get<RegisterViewModel>()
                 RegisterScreenRoot(viewModel) {
                     router.go(Route.VerifyOtp) // navigate using AppRouter
                 }

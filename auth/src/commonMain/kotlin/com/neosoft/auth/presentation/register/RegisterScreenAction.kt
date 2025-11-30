@@ -11,5 +11,8 @@ interface RegisterScreenAction {
 
     object  OnSignIn: RegisterScreenAction
 
-    object   OnNext: RegisterScreenAction
+    data class   OnNext(
+        val mobleNo :String,
+        val countryCode :String
+    ): RegisterScreenAction
 }

@@ -58,6 +58,7 @@ kotlin {
             implementation(project(":designsystem"))
             implementation(project(":auth"))
             implementation(project(":coreModules"))
+            implementation(project(":localStorage"))
             implementation(libs.coil.compose)
 
         }
@@ -102,6 +103,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":localStorage"))
     implementation(project(":designsystem"))
     implementation(project(":auth"))
     implementation(project(":coreModules"))

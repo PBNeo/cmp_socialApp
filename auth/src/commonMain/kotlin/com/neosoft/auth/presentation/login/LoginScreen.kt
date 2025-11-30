@@ -24,6 +24,8 @@ import com.neosoft.coremodules.navigation.LocalRouter
 import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.AppTextField
+import com.neosoft.designsystem.components.BaseScreen
+import com.neosoft.designsystem.utils.AppColors.primary
 import neosoft.login.LoginScreenAction
 import neosoft.login.LoginScreenState
 import neosoft.login.LoginViewModel
@@ -41,6 +43,9 @@ fun LoginScreenRoot(
         state = state,
         onAction = { action ->
             when(action) {
+                is LoginScreenAction.OnBackPressed ->{
+                    router.pop()
+                }
                 is LoginScreenAction.OnNext -> {
                     // TODO: navigate
                 }
@@ -61,73 +66,77 @@ fun LoginScreenRoot(
 fun LoginScreen(state: LoginScreenState, onAction: (LoginScreenAction) -> Unit) {
     var userName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
-            .verticalScroll(rememberScrollState())
-    ){
-        Text(
-            "Sign In",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(Modifier.height(4.dp))
-
-        Text(
-            "Enter your credentials",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
-        Spacer(Modifier.height(24.dp))
-
-        AppTextField(
-            value = userName,
-            onValueChange = { userName = it },
-            label = "User Name"
-        )
-        Spacer(Modifier.height(24.dp))
-
-        AppTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = "Password"
-        )
-
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-
+    BaseScreen(
+        showBackButton = true,
+        onBackPressed = { onAction(LoginScreenAction.OnBackPressed) }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             Text(
-                "Forgot Password",
-                modifier = Modifier.clickable {
-                    onAction(LoginScreenAction.OnForgotPassword)
-
-                },
-                color = Color(0xFF0077B6),
+                "Sign In",
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
-        }
+            Spacer(Modifier.height(4.dp))
 
-        Spacer(Modifier.height(24.dp))
-
-        AppPrimaryButton(
-            text = "Done",
-            onClick = { onAction(LoginScreenAction.OnNext) }
-        )
-        Spacer(Modifier.height(24.dp))
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text("Already have an account? ")
             Text(
-                "Sign Up",
-                modifier = Modifier.clickable {
-                    onAction(LoginScreenAction.OnSignUpClicked)
-
-                },
-                color = Color(0xFF0077B6),
-                fontWeight = FontWeight.Bold
+                "Enter your credentials",
+                fontSize = 16.sp,
+                color = Color.Gray
             )
+            Spacer(Modifier.height(24.dp))
+
+            AppTextField(
+                value = userName,
+                onValueChange = { userName = it },
+                label = "User Name"
+            )
+            Spacer(Modifier.height(24.dp))
+
+            AppTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = "Password"
+            )
+            Spacer(Modifier.height(8.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+
+                Text(
+                    "Forgot Password",
+                    modifier = Modifier.clickable {
+                        onAction(LoginScreenAction.OnForgotPassword)
+
+                    },
+                    color = primary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Spacer(Modifier.height(24.dp))
+
+            AppPrimaryButton(
+                text = "Done",
+                onClick = { onAction(LoginScreenAction.OnNext) }
+            )
+            Spacer(Modifier.height(24.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                Text("Already have an account? ")
+                Text(
+                    "Sign Up",
+                    modifier = Modifier.clickable {
+                        onAction(LoginScreenAction.OnSignUpClicked)
+
+                    },
+                    color = primary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+
         }
-
-
     }
 }

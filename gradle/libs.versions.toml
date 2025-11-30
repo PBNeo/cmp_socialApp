@@ -18,8 +18,8 @@ navigationCompose = "2.8.0-alpha10"
 ktor = "3.3.1"
 koin = "4.0.0"
 kotlinx-serialization = "1.6.0"
-room = "2.8.3"
-sqlite = "2.6.1"
+room = "2.8.4"
+sqlite = "2.6.2"
 ksp = "2.2.20-2.0.2"
 coil = "3.3.0"
 kotlinStdlib = "2.2.20"
@@ -40,7 +40,10 @@ androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-sqlite-wrapper = { module = "androidx.room:room-sqlite-wrapper", version.ref = "room" }
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -83,6 +86,8 @@ androidx-room = { id = "androidx.room", version.ref = "room" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
+room = { id = "androidx.room", version.ref = "room" }
+
 
 [bundles]
 ktor = [

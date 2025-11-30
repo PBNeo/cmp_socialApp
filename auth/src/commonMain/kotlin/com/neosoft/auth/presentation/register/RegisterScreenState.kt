@@ -1,13 +1,11 @@
 package com.neosoft.auth.presentation.register
 
-class RegisterScreenState {
+data class RegisterScreenState(
+    val mobileNo: String = "",
+    val countryCode: String = "",
+    val loading: Boolean = false,
+    val error: String? = null
+)
 
-    val isLoading: Boolean = true
-    val mobileNo : String=""
-    val countryCode: String=""
-    var selectedIndex : Int=0
-
-
-}
 
 

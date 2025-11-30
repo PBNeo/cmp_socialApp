@@ -21,9 +21,12 @@ import com.neosoft.coremodules.navigation.LocalRouter
 import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.AppPrimaryButton
 import com.neosoft.designsystem.components.AppTextField
+import com.neosoft.designsystem.components.BaseScreen
+import com.neosoft.designsystem.utils.AppColors.primary
 import neosoft.accountUserSetup.AccountUserSetupScreenState
 import neosoft.accountUserSetup.AccountUserSetupViewModel
 import neosoft.changePassword.ChangePasswordScreenAction
+import neosoft.forgotPassword.ForgotPasswordScreenAction
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -51,61 +54,66 @@ fun AccountUserSetupScreen(state: AccountUserSetupScreenState, onAction: (Accoun
     var userName by remember { mutableStateOf("") }
     var newPass by remember { mutableStateOf("") }
     var conFirmNewPass by remember { mutableStateOf("") }
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
-            .verticalScroll(rememberScrollState())
+    BaseScreen(
+        showBackButton = true,
+        onBackPressed = { onAction(AccountUserSetupScreenAction.OnBackPressed) }
     ) {
-        Text(
-            "Select a Username",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(Modifier.height(4.dp))
-
-        Text(
-            "Help you secure your account",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
-        Spacer(Modifier.height(24.dp))
-
-        AppTextField(
-            value = newPass,
-            onValueChange = { newPass = it },
-            label = "User Name"
-        )
-        Spacer(Modifier.height(24.dp))
-
-        AppTextField(
-            value = newPass,
-            onValueChange = { newPass = it },
-            label = "New Password"
-        )
-        Spacer(Modifier.height(24.dp))
-
-        AppTextField(
-            value = conFirmNewPass,
-            onValueChange = { conFirmNewPass = it },
-            label = "Confirm new Password"
-        )
-
-        Spacer(Modifier.height(24.dp))
-
-        AppPrimaryButton(
-            text = "Done",
-            onClick = { onAction(AccountUserSetupScreenAction.OnNext) }
-        )
-        Spacer(Modifier.height(24.dp))
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text("Already have an account? ")
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             Text(
-                "Sign In",
-                color = Color(0xFF0077B6),
+                "Select a Username",
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
-        }
+            Spacer(Modifier.height(4.dp))
 
+            Text(
+                "Help you secure your account",
+                fontSize = 16.sp,
+                color = Color.Gray
+            )
+            Spacer(Modifier.height(24.dp))
+
+            AppTextField(
+                value = newPass,
+                onValueChange = { newPass = it },
+                label = "User Name"
+            )
+            Spacer(Modifier.height(24.dp))
+
+            AppTextField(
+                value = newPass,
+                onValueChange = { newPass = it },
+                label = "New Password"
+            )
+            Spacer(Modifier.height(24.dp))
+
+            AppTextField(
+                value = conFirmNewPass,
+                onValueChange = { conFirmNewPass = it },
+                label = "Confirm new Password"
+            )
+
+            Spacer(Modifier.height(24.dp))
+
+            AppPrimaryButton(
+                text = "Done",
+                onClick = { onAction(AccountUserSetupScreenAction.OnNext) }
+            )
+            Spacer(Modifier.height(24.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                Text("Already have an account? ")
+                Text(
+                    "Sign In",
+                    color = primary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+        }
     }
 }

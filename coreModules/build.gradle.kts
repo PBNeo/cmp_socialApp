@@ -64,6 +64,12 @@ kotlin {
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(libs.jetbrains.compose.navigation)
                 implementation(libs.kotlinx.serialization.json)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.logging)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.koin.compose)
+                implementation(libs.koin.compose.viewmodel)
             }
         }
 
@@ -75,6 +81,9 @@ kotlin {
 
         androidMain {
             dependencies {
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.koin.android)
+                implementation(libs.koin.androidx.compose)
                 // Add Android-specific dependencies here. Note that this source set depends on
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
@@ -91,6 +100,7 @@ kotlin {
 
         iosMain {
             dependencies {
+                implementation(libs.ktor.client.darwin)
                 // Add iOS-specific dependencies here. This a source set created by Kotlin Gradle
                 // Plugin (KGP) that each specific iOS target (e.g., iosX64) depends on as
                 // part of KMP’s default source set hierarchy. Note that this source set depends
