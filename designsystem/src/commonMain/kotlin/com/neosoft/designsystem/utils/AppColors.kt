@@ -7,7 +7,7 @@ object AppColors {
     val white = Color(0xFFFFFFFF)
     val black = Color(0xFF000000)
     val onyxBlack = Color(0xFF363942)
-    val grey = Color(0xFF87888e)
+    val grey = Color(0xFFC4C4C4)
     val primary = Color(0xFF006175)
     val secondary = Color(0xFF03DAC5)
     val background = Color(0xFFF9F9F9)

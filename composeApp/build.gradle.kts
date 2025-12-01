@@ -54,11 +54,13 @@ kotlin {
             implementation(libs.jetbrains.compose.navigation)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.kotlinx.serialization.json )
             api(libs.koin.core)
             implementation(project(":designsystem"))
             implementation(project(":auth"))
             implementation(project(":coreModules"))
             implementation(project(":localStorage"))
+            implementation(project(":home"))
             implementation(libs.coil.compose)
 
         }
@@ -106,6 +108,7 @@ dependencies {
     implementation(project(":localStorage"))
     implementation(project(":designsystem"))
     implementation(project(":auth"))
+    implementation(project(":home"))
     implementation(project(":coreModules"))
     debugImplementation(compose.uiTooling)
     add("kspAndroid", libs.androidx.room.compiler)

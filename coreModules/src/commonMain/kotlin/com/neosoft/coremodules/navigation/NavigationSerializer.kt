@@ -1,12 +1,21 @@
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
+import io.ktor.http.decodeURLQueryComponent
+import io.ktor.http.encodeURLParameter
+
 
 object NavigationSerializer {
-    private val json = Json { encodeDefaults = true }
 
-    fun <T> encode(obj: T, serializer: KSerializer<T>): String =
-        json.encodeToString(serializer, obj)
+    private val json = Json { ignoreUnknownKeys = true }
 
-    fun <T> decode(encoded: String, serializer: KSerializer<T>): T =
-        json.decodeFromString(serializer, encoded)
+    fun <T> encode(value: T, serializer: KSerializer<T>): String {
+        val serialized = json.encodeToString(serializer, value)
+        return serialized.encodeURLParameter().encodeURLParameter() // double encode
+    }
+
+    fun <T> decode(input: String, serializer: KSerializer<T>): T {
+        val decoded = input.decodeURLQueryComponent().decodeURLQueryComponent() // double decode
+        return json.decodeFromString(serializer, decoded)
+    }
 }
+

@@ -1,6 +1,4 @@
 package neosoft.welcome
-
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.neosoft.coremodules.navigation.LocalRouter
+import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.AppPrimaryButton
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -38,7 +37,7 @@ fun WelcomeScreenRoot(
         onAction = { action ->
             when(action) {
                 is WelcomeScreenAction.OnNext -> {
-                    // TODO: navigate
+                    router.go(Route.Home)
                 }
                 else -> Unit
             }

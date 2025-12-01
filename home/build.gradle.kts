@@ -2,9 +2,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.android.lint)
-    alias(libs.plugins.composeHotReload)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.android.lint)
     alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
@@ -14,7 +13,7 @@ kotlin {
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
-        namespace = "com.neosoft.designsystem"
+        namespace = "com.neosoft.home"
         compileSdk = 36
         minSdk = 24
 
@@ -35,7 +34,7 @@ kotlin {
     // A step-by-step guide on how to include this library in an XCode
     // project can be found here:
     // https://developer.android.com/kotlin/multiplatform/migrate
-    val xcfName = "designsystemKit"
+    val xcfName = "homeKit"
 
     iosX64 {
         binaries.framework {
@@ -62,28 +61,28 @@ kotlin {
     // See: https://kotlinlang.org/docs/multiplatform-hierarchy.html
     sourceSets {
         commonMain {
-            dependencies    {
-                  implementation(libs.kotlin.stdlib)
+            dependencies {
+                implementation(libs.kotlin.stdlib)
                 // Add KMP dependencies here
 
                 // Add KMP dependencies here
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
-
+                implementation(compose.materialIconsExtended)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
-                implementation(compose.materialIconsExtended)
                 implementation(compose.ui)
                 implementation(compose.components.resources)
                 implementation(compose.components.uiToolingPreview)
-                // For extended Material Icons (including Icons.Default.ArrowBack)
+                implementation(project(":designsystem"))
+                implementation(project(":coreModules"))
+                implementation(project(":localStorage"))
+                implementation(libs.koin.compose)
                 implementation(libs.kotlinx.serialization.json )
-                implementation(libs.coil.compose)
-                implementation(libs.coil.compose.ktor)
+                implementation(libs.koin.compose.viewmodel)
                 implementation(libs.bundles.ktor)
-
-                // Add KMP dependencies here
+                implementation(libs.kotlinx.serialization.json)
             }
         }
 
@@ -95,7 +94,8 @@ kotlin {
 
         androidMain {
             dependencies {
-                implementation(libs.androidx.activity.compose)
+                implementation(libs.koin.android)
+                implementation(libs.koin.androidx.compose)
                 implementation(libs.ktor.client.okhttp)
                 // Add Android-specific dependencies here. Note that this source set depends on
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
@@ -121,6 +121,13 @@ kotlin {
                 // KMP dependencies declared in commonMain.
             }
         }
+    }
+
+
+    dependencies {
+        implementation(project(":designsystem"))
+        implementation(project(":coreModules"))
+        implementation(project(":localStorage"))
     }
 
 }

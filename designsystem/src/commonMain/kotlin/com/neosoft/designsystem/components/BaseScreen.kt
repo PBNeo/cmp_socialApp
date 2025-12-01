@@ -1,7 +1,9 @@
 package com.neosoft.designsystem.components
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -29,7 +32,9 @@ import androidx.compose.ui.unit.sp
 fun BaseScreen(
     modifier: Modifier = Modifier,
     showBackButton: Boolean = false,
+    title: String? = null,
     onBackPressed: (() -> Unit)? = null,
+    actions: @Composable RowScope.() -> Unit = {},
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
@@ -37,25 +42,48 @@ fun BaseScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Top Row: Back button optional
-        if (showBackButton) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-                    .padding(vertical =  16.dp)
-            ) {
-                IconButton(onClick = { onBackPressed?.invoke() }) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back"
-                    )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+
+            // Back button aligned to START
+            if (showBackButton) {
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                ) {
+                    IconButton(onClick = { onBackPressed?.invoke() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.weight(1f))
             }
 
+            // Title centered ALWAYS
+            if (title != null) {
+                Text(
+                    text = title,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            }
+
+            // Actions aligned to END
+            Row(
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+            ) {
+                actions()
+            }
         }
 
-        // Content slot
+        // Main content
         content()
     }
 }
+

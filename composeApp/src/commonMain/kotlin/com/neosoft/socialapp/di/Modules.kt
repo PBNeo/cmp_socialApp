@@ -13,9 +13,12 @@ import com.neosoft.socialapp.core.LocalDataBaseBuilder
 import com.neosoft.socialapp.splash.presentation.SplashViewModel
 import neosoft.accountUserSetup.AccountUserSetupViewModel
 import neosoft.changePassword.ChangePasswordViewModel
+import neosoft.comment.CommentViewModel
 import neosoft.forgotPassword.ForgotPasswordViewModel
+import neosoft.home.HomeViewModel
 import neosoft.login.LoginViewModel
 import neosoft.profileSetup.ProfileSetupViewModel
+import neosoft.status.StatusViewModel
 import neosoft.welcome.WelcomeViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
@@ -34,6 +37,10 @@ val sharedModule = module {
     viewModelOf(::ForgotPasswordViewModel)
     viewModelOf(::ChangePasswordViewModel)
     viewModelOf(::WelcomeViewModel)
+    viewModelOf(::HomeViewModel)
+    viewModelOf(::StatusViewModel)
+    viewModelOf(::CommentViewModel)
+
 
     single <RoomDatabase.Builder<AppDatabase>>{
         LocalDataBaseBuilder.getDatabaseBuilder()

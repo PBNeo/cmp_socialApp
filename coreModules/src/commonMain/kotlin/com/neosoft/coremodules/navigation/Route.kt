@@ -1,6 +1,7 @@
 package com.neosoft.coremodules.navigation
 
 
+import com.neosoft.designsystem.components.dashboard.CommentModel
 import kotlinx.serialization.Serializable
 
 import kotlinx.serialization.KSerializer
@@ -61,6 +62,32 @@ sealed interface Route {
         override val path: String = "auth/profileSetup/"
 
     }
+
+
+
+    @Serializable
+    data object Home : Route {
+        override val path: String = "home/"
+
+    }
+    @Serializable
+    data class Status(val postId: String) : Route {
+        override val path: String = "home/status/${postId}"
+
+    }
+
+
+    @Serializable
+    data class CommentsArgs(val comments: List<CommentModel>)
+
+    @Serializable
+    data object Comments : WithArgs<CommentsArgs> {
+        override val routeName: String = "home/comments"
+        override val serializer = CommentsArgs.serializer()
+    }
+
+
+
     interface WithArgs<T> : Route {
         val routeName: String
         val serializer: KSerializer<T>

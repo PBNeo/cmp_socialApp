@@ -1,3 +1,6 @@
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
@@ -70,6 +73,7 @@ kotlin {
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
+                implementation(project(":designsystem"))
             }
         }
 
@@ -108,6 +112,10 @@ kotlin {
                 // KMP dependencies declared in commonMain.
             }
         }
+    }
+
+    dependencies {
+        implementation(project(":designsystem"))
     }
 
 }
