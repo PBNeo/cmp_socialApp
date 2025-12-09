@@ -1,9 +1,12 @@
 package com.neosoft.socialapp
 
 import platform.UIKit.UIDevice
+import kotlin.experimental.ExperimentalNativeApi
 
-class IOSPlatform: Platform {
-    override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
+@OptIn(ExperimentalNativeApi::class)
+actual class Platform {
+    actual val name: String =
+        UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
 }
 
-actual fun getPlatform(): Platform = IOSPlatform()
+actual fun getPlatform(): Platform = Platform()

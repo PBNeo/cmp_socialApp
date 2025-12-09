@@ -1,3 +1,4 @@
+
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -61,7 +62,14 @@ kotlin {
             implementation(project(":coreModules"))
             implementation(project(":localStorage"))
             implementation(project(":home"))
+            implementation(project(":chat"))
+            implementation(project(":notification"))
+            implementation(project(":profile"))
+            implementation(project(":createPost"))
+            implementation(project(":lounge"))
             implementation(libs.coil.compose)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
 
         }
         commonTest.dependencies {
@@ -109,7 +117,12 @@ dependencies {
     implementation(project(":designsystem"))
     implementation(project(":auth"))
     implementation(project(":home"))
+    implementation(project(":chat"))
+    implementation(project(":createPost"))
+    implementation(project(":notification"))
     implementation(project(":coreModules"))
+    implementation(project(":profile"))
+    implementation(project(":lounge"))
     debugImplementation(compose.uiTooling)
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)

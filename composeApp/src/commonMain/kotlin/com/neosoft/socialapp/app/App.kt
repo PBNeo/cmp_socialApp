@@ -22,6 +22,8 @@ import com.neosoft.coremodules.navigation.AppRouter
 import com.neosoft.coremodules.navigation.LocalRouter
 import com.neosoft.coremodules.navigation.Route
 import com.neosoft.designsystem.components.dashboard.CommentModel
+import com.neosoft.notification.presentation.NotificationScreenRoot
+import com.neosoft.socialapp.com.neosoft.socialapp.main.MainScreenRoot
 import com.neosoft.socialapp.splash.presentation.SplashViewModel
 import io.ktor.http.Url
 import kotlinx.serialization.json.Json
@@ -54,7 +56,7 @@ fun App() {
 
         NavHost(
             navController = navController,
-            startDestination = Route.Home.path
+            startDestination = Route.Root.path
         ) {
             composable(Route.Splash.path) {
                 val viewModel = koinViewModel<SplashViewModel>()
@@ -94,7 +96,11 @@ fun App() {
                 route = "auth/verifyOtp/{mobile}",
                 arguments = listOf(navArgument("mobile") { type = NavType.StringType })
             ) { backStackEntry ->
-                val mobileEncoded = backStackEntry.arguments?.getString("mobile")!!
+                val routeString = backStackEntry.destination.route ?: ""
+                val mobileEncoded = routeString
+                    .substringAfter("mobile=", "1") // "defaultMobile" is used if "mobile" is missing
+
+
                 VerifyOtpScreenRoot(mobile = mobileEncoded,)
             }
 
@@ -108,16 +114,25 @@ fun App() {
                 WelcomeScreenRoot(viewModel)
             }
 
+            composable(Route.Root.path) {
+                MainScreenRoot()
+            }
+
+
             composable(Route.Home.path) {
                 val viewModel = koinViewModel<HomeViewModel>()
                 HomeScreenRoot(viewModel)
             }
-
+            composable(Route.Notification.path) {
+                NotificationScreenRoot("1")
+            }
             composable(
                 route = "home/status/{postId}",
                 arguments = listOf(navArgument("postId") { type = NavType.StringType })
             ) { backStackEntry ->
-                val postEncoded = backStackEntry.arguments?.getString("postId")!!
+                val routeString = backStackEntry.destination.route ?: ""
+                val postEncoded = routeString
+                    .substringAfter("postId=", "1") //
                 StatusScreenRoot(postId = postEncoded,)
             }
 
@@ -132,15 +147,16 @@ fun App() {
 //                CommentScreenRoot(comments = comments)
 //            }
             composable(
-                route = "${Route.Comments.routeName}/{args}",
+                route = "home/comments/{args}",
                 arguments = listOf(navArgument("args") { type = NavType.StringType })
             ) { backStackEntry ->
-
-                val args = router.getArgs(backStackEntry, Route.Comments)
-                    ?: error("Missing args")
+                // Safe extraction of arguments
+                val args = router.getArgs(backStackEntry, Route.CommentsRoute)
+                    ?: Route.CommentsArgs(emptyList()) // fallback empty list
 
                 CommentScreenRoot(comments = args.comments)
             }
+
 
 
 

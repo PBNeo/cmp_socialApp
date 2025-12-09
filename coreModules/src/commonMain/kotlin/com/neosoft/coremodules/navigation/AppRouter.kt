@@ -14,10 +14,20 @@ class AppRouter(private val navController: NavHostController) {
         navController.navigate("${route.routeName}/$encoded")
     }
 
-    fun <T: Any> getArgs(backStackEntry: NavBackStackEntry, route: Route.WithArgs<T>): T? {
-        val raw = backStackEntry.arguments?.getString("args") ?: return null
-        return NavigationSerializer.decode(raw, route.serializer)
+    fun <T : Any> getArgs(
+        backStackEntry: NavBackStackEntry,
+        route: Route.WithArgs<T>
+    ): T? {
+        val routeString = backStackEntry.destination.route ?: ""
+        val postEncoded = routeString
+            .substringAfter("args=", "1")
+        println("backStackEntry")
+        println(postEncoded)
+        return NavigationSerializer.decode(postEncoded, route.serializer)
     }
+
+
+
 
     fun pop() = navController.popBackStack()
 }

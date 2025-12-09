@@ -1,6 +1,5 @@
 package neosoft.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,32 +16,23 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.neosoft.designsystem.components.components.BottomNavBar
 import com.neosoft.coremodules.navigation.LocalRouter
 import com.neosoft.coremodules.navigation.Route
-import com.neosoft.dashboard.presentation.bottom.BottomBar
-import com.neosoft.designsystem.components.AppPrimaryButton
-import com.neosoft.designsystem.components.AppTextField
 import com.neosoft.designsystem.components.BaseScreen
 import com.neosoft.designsystem.components.PostCard
 import com.neosoft.designsystem.components.StoryRow
 import com.neosoft.designsystem.utils.AppColors.primary
-import kotlinx.serialization.json.Json
 import org.koin.compose.viewmodel.koinViewModel
-import io.ktor.http.*
-
 
 
 @Composable
@@ -59,11 +49,10 @@ fun HomeScreenRoot(
                 is HomeScreenAction.OnBackPressed -> router.pop()
                 is HomeScreenAction.OpenStatus -> router.go(Route.Status(postId = "1"))
                 is HomeScreenAction.onViewMoreComments -> {
-                    router.go(
-                        Route.Comments,
-                        Route.CommentsArgs(action.comments)
-                    )
+                    val args = Route.CommentsArgs(comments = action.comments)
+                    router. go(Route.CommentsRoute, args)
                 }
+                is HomeScreenAction.OnNotificationClicked ->  router.go(Route.Notification)
                 is HomeScreenAction.OnCreatePost -> { /* open create */ }
             }
         }
@@ -94,13 +83,16 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(
-                    onClick = {},
+                    onClick = {
+                        onAction(HomeScreenAction.OnNotificationClicked)
+                    },
                     modifier = Modifier
                         .padding(8.dp)
                         .size(36.dp)
                         .clip(CircleShape)
                 ) {
                     Icon(
+
                         imageVector = Icons.Default.Notifications,
                         contentDescription = "Notification",
                         tint = primary
@@ -126,12 +118,6 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(12.dp))
                 }
             }
-            Spacer(Modifier.height(12.dp))
-            BottomBar(
-                onHome ={},
-                onStatus ={},
-                onProfile={}
-            )
         }
     }
 }

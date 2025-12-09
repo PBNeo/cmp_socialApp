@@ -70,9 +70,21 @@ sealed interface Route {
         override val path: String = "home/"
 
     }
+
+    @Serializable
+    data object Root : Route {
+        override val path: String = "root/"
+
+    }
     @Serializable
     data class Status(val postId: String) : Route {
         override val path: String = "home/status/${postId}"
+
+    }
+
+    @Serializable
+    data class Comments(val comments: String) : Route {
+        override val path: String = "home/comments/${comments}"
 
     }
 
@@ -80,10 +92,11 @@ sealed interface Route {
     @Serializable
     data class CommentsArgs(val comments: List<CommentModel>)
 
-    @Serializable
-    data object Comments : WithArgs<CommentsArgs> {
+
+    object CommentsRoute : Route.WithArgs<CommentsArgs> {
         override val routeName: String = "home/comments"
         override val serializer = CommentsArgs.serializer()
+
     }
 
 
@@ -91,6 +104,7 @@ sealed interface Route {
     interface WithArgs<T> : Route {
         val routeName: String
         val serializer: KSerializer<T>
+
         override val path: String
             get() = "$routeName/{args}"
     }
@@ -101,4 +115,11 @@ sealed interface Route {
         override val routeName: String = "profile"
         override val serializer = Profile.serializer()
     }
+
+    @Serializable
+    data object  Notification : Route {
+        override val path: String = "home/notification"
+    }
+
+
 }

@@ -5,4 +5,5 @@ import com.neosoft.socialapp.app.App
 import com.neosoft.socialapp.di.initKoin
 
 fun MainViewController() = ComposeUIViewController {
+    initKoin()
     App() }

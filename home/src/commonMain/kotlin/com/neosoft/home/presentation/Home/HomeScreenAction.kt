@@ -4,6 +4,7 @@ import com.neosoft.designsystem.components.dashboard.CommentModel
 
 interface HomeScreenAction {
     object OnBackPressed : HomeScreenAction
+    object OnNotificationClicked : HomeScreenAction
     object OnNext : HomeScreenAction
     object OnCreatePost : HomeScreenAction
 

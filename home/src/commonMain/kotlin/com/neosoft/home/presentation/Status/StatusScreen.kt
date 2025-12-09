@@ -44,7 +44,6 @@ fun StatusScreen(
             mediaUrl = state.mediaUrl,
             isVideo = state.isVideo,
             onPlay = { /* play video */ },
-            onClose = { onClose() }
         )
 
 
