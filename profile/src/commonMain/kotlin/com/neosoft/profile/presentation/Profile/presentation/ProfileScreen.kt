@@ -33,7 +33,7 @@ import neosoft.profile.ProfileScreenState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(state: ProfileScreenState, onAction: (ProfileScreenAction) -> Unit) {
-    BaseScreen(title = state.name ?: "Profile") {
+    BaseScreen {
         if (state.isLoading) {
             // you can show a loading composable from your design system
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -43,13 +43,6 @@ fun ProfileScreen(state: ProfileScreenState, onAction: (ProfileScreenAction) -> 
         }
 
         Column(modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
-            Spacer(modifier = Modifier.height(12.dp))
-
-            TopAppBar(title = { Text(text = state.name ?: "Profile") }, navigationIcon = {
-                // back button as text for simplicity; replace with IconButton if you have it
-                TextButton(onClick = { onAction(ProfileScreenAction.OnBackPressed) }) { Text("Back") }
-            })
-
             Spacer(modifier = Modifier.height(8.dp))
 
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {

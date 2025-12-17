@@ -110,6 +110,5 @@ val sharedModule = module {
     }
     single<CreatePostUseCase> { CreatePostUseCase(get()) }
     factory<CreatePostViewModel> { CreatePostViewModel(get()) }
-    chatModule
-    loungeModule
+
 }

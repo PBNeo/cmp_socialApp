@@ -20,7 +20,7 @@ val loungeModule = module {
     factory { CreateLoungeUseCase(get()) }
     factory { GetLoungeDetailsUseCase(get()) }
 
-    viewModel { LoungeListViewModel(get()) }
-    viewModel { LoungeViewModel(get()) }
-    viewModel { CreateLoungeViewModel(get()) }
+    factory { LoungeListViewModel(get()) }
+    factory { LoungeViewModel(get()) }
+    factory { CreateLoungeViewModel(get()) }
 }
